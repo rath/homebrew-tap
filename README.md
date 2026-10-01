@@ -41,3 +41,44 @@ brew test rath/tap/portway
 
 The explicit path selects the Homebrew installation even if another copy of
 `portway` appears earlier on your `PATH`.
+
+## vtamp
+
+[vtamp](https://github.com/rath/vtamp) is a detachable terminal music player: a
+persistent playback server with terminal clients, so music keeps playing when
+the interface exits or a tmux client detaches. This formula installs a prebuilt,
+self-contained release binary; Rust is not required.
+
+### Install
+
+```sh
+brew install rath/tap/vtamp
+```
+
+Supported platforms:
+
+| Operating system | Architecture |
+| --- | --- |
+| macOS | Apple Silicon (ARM64) |
+
+Intel Macs and Linux are not supported by this formula; build from source instead.
+
+### Update
+
+```sh
+brew update
+brew upgrade vtamp
+```
+
+Run `vtamp server stop` afterwards so the next `vtamp` starts the new build; a
+running playback server is never replaced by an install.
+
+### Verify
+
+```sh
+brew test rath/tap/vtamp
+"$(brew --prefix vtamp)/bin/vtamp" --version
+```
+
+The explicit path selects the Homebrew installation even if another copy of
+`vtamp` appears earlier on your `PATH`.
