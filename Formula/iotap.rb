@@ -2,7 +2,6 @@ class Iotap < Formula
   desc "Trace the file and network I/O of processes"
   homepage "https://iotap.told.me"
   url "https://github.com/rath/iotap/releases/download/v0.1.0/iotap-aarch64-apple-darwin.tar.gz"
-  version "0.1.0"
   sha256 "3d2d582f03b8c5387337a05703082550e8fedea65bf22d3e627cd211bef789d2"
   license "MIT"
 
