@@ -2,6 +2,56 @@
 
 Homebrew formulae by Jang-Ho Hwang
 
+## iotap
+
+[iotap](https://iotap.told.me) traces the file and network I/O of chosen
+processes: each read and write with its path or socket endpoint, size, and latency.
+This formula installs prebuilt release binaries; Rust is not required.
+
+### Install
+
+```sh
+brew install rath/tap/iotap
+```
+
+Supported platforms:
+
+| Operating system | Architecture |
+| --- | --- |
+| macOS | Apple Silicon (ARM64) |
+| Linux | x86_64 or ARM64 |
+
+Intel Macs can build from source. Linux release binaries target glibc 2.28 or
+newer; Homebrew and its dependencies have their own OS requirements. The formula
+installs the required libelf and zlib libraries through Homebrew.
+
+Tracing needs root, and Linux needs kernel 5.8 or newer with BPF and syscall
+tracepoints. Replace `1234` with the PID of a running process:
+
+```sh
+sudo iotap --tui 1234
+```
+
+On macOS, stop other kdebug tracers such as `fs_usage` before tracing. Replaying
+a saved recording with `iotap --replay FILE` does not require root.
+
+### Update
+
+```sh
+brew update
+brew upgrade iotap
+```
+
+### Verify
+
+```sh
+brew test rath/tap/iotap
+"$(brew --prefix iotap)/bin/iotap" --version
+```
+
+These checks do not need root. The explicit path selects the Homebrew binary
+even if another copy of `iotap` appears earlier on your `PATH`.
+
 ## Portway
 
 [Portway](https://github.com/rath/portway) is a compression-first HTTP forwarder

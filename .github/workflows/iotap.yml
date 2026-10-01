@@ -1,0 +1,41 @@
+name: Test iotap
+
+on:
+  push:
+    paths: ["Formula/iotap.rb", ".github/workflows/iotap.yml"]
+  pull_request:
+    paths: ["Formula/iotap.rb", ".github/workflows/iotap.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: iotap-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    name: Install (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04, ubuntu-24.04-arm]
+    steps:
+      # This action checks out the current tap commit into Homebrew's tap path.
+      - uses: Homebrew/actions/setup-homebrew@e99025eb970cfa124b8284a35463d87426917478 # main
+      - name: Style, install, and test
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+        run: |
+          brew style rath/tap/iotap
+          brew install rath/tap/iotap
+          brew test rath/tap/iotap
+          brew audit --strict rath/tap/iotap
+          "$(brew --prefix iotap)/bin/iotap" --version
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            brew linkage --test iotap
+          fi

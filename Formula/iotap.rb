@@ -1,0 +1,57 @@
+class Iotap < Formula
+  desc "Trace the file and network I/O of processes"
+  homepage "https://iotap.told.me"
+  url "https://github.com/rath/iotap/releases/download/v0.1.0/iotap-aarch64-apple-darwin.tar.gz"
+  version "0.1.0"
+  sha256 "3d2d582f03b8c5387337a05703082550e8fedea65bf22d3e627cd211bef789d2"
+  license "MIT"
+
+  on_macos do
+    depends_on arch: :arm64
+  end
+
+  on_linux do
+    depends_on "patchelf" => :build
+    depends_on "elfutils"
+    depends_on "zlib-ng-compat"
+
+    on_arm do
+      url "https://github.com/rath/iotap/releases/download/v0.1.0/iotap-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "1a4b5fb1b2bf357d14186bf8cae8966e83de1ef5a8701ceac72546cc80e86108"
+    end
+
+    on_intel do
+      url "https://github.com/rath/iotap/releases/download/v0.1.0/iotap-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "0200322c2b4afd790e186ce7fbf204156993aedf664e7ff173bfa178078678fd"
+    end
+  end
+
+  def install
+    bin.install "iotap"
+    return unless OS.linux?
+
+    # Prebuilt binaries need the same library search paths as a Homebrew build.
+    # Homebrew's relocation step selects its loader when the host needs it.
+    rpaths = [formula_opt_lib("elfutils"), formula_opt_lib("zlib-ng-compat"), HOMEBREW_PREFIX/"lib"]
+    system "patchelf", "--set-rpath", rpaths.join(":"), bin/"iotap"
+  end
+
+  def caveats
+    <<~EOS
+      Tracing needs root: sudo iotap --tui <PID>
+      Replaying a recording does not: iotap --replay <FILE>
+      Linux tracing needs kernel 5.8 or newer with BPF and syscall tracepoints.
+    EOS
+  end
+
+  test do
+    assert_equal "iotap #{version}", shell_output("#{bin}/iotap --version").strip
+    help = shell_output("#{bin}/iotap --help")
+    assert_match "--tui", help
+    assert_match "--children", help
+    assert_match "--replay", help
+    (testpath/"invalid.iotaprec").write "not an iotap recording"
+    assert_match "not an iotap recording",
+                 shell_output("#{bin}/iotap --replay #{testpath}/invalid.iotaprec 2>&1", 1)
+  end
+end
