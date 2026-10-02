@@ -132,3 +132,34 @@ brew test rath/tap/vtamp
 
 The explicit path selects the Homebrew installation even if another copy of
 `vtamp` appears earlier on your `PATH`.
+
+## Vimdow
+
+[Vimdow](https://vimdow.told.me) is a keyboard-driven window manager for macOS.
+Enter command mode to move, resize, snap, and switch windows with Vim-style keys.
+Mark individual windows to cycle between them with Control–Option–Tab.
+
+### Install
+
+```sh
+brew install rath/tap/vimdow
+```
+
+Requires macOS 14 (Sonoma) or later on Apple Silicon or Intel. The cask installs
+a universal app signed with Developer ID and notarized by Apple.
+
+Open **Vimdow.app** from Applications and allow it in **System Settings →
+Privacy & Security → Accessibility**. Press **Control–Option–A** to enter
+command mode and `,` to open Settings.
+
+### Update
+
+Quit Vimdow first: press **Control–Option–A**, then `x`.
+
+```sh
+brew update
+brew upgrade --cask vimdow
+open /Applications/Vimdow.app
+```
+
+Window marks last only while Vimdow is running, so mark them again after restarting.

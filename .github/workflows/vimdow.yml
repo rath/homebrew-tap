@@ -1,0 +1,44 @@
+name: Test Vimdow cask
+
+on:
+  push:
+    paths: ["Casks/vimdow.rb", ".github/workflows/vimdow.yml"]
+  pull_request:
+    paths: ["Casks/vimdow.rb", ".github/workflows/vimdow.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vimdow-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    name: Install (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel]
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@e99025eb970cfa124b8284a35463d87426917478 # main
+      - name: Style, audit, install, and verify
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+        run: |
+          brew style --cask rath/tap/vimdow
+          brew audit --cask --strict --online rath/tap/vimdow
+          brew install --cask rath/tap/vimdow
+          app="/Applications/Vimdow.app"
+          expected="$(brew info --cask --json=v2 rath/tap/vimdow | jq -r '.casks[0].version')"
+          actual="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")"
+          test "$actual" = "$expected"
+          test "$(lipo -archs "$app/Contents/MacOS/Vimdow")" = "x86_64 arm64"
+          codesign --verify --deep --strict "$app"
+          xcrun stapler validate "$app"
+          spctl --assess --type execute "$app"
+          brew uninstall --cask vimdow
