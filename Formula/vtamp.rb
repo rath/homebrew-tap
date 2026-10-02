@@ -1,8 +1,8 @@
 class Vtamp < Formula
   desc "Terminal music player with a persistent playback server"
   homepage "https://github.com/rath/vtamp"
-  url "https://github.com/rath/vtamp/releases/download/v0.1.0/vtamp-aarch64-apple-darwin.tar.gz"
-  sha256 "a01e47e1732b81d8c165575aa97261c2da70f809c428baa22f971595e3362e7f"
+  url "https://github.com/rath/vtamp/releases/download/v0.2.0/vtamp-aarch64-apple-darwin.tar.gz"
+  sha256 "4684c2a7d5b4097db34724fe567e15d9e4b8032335a4d5b80a25c0227b57e923"
   license "MIT"
 
   depends_on arch: :arm64
