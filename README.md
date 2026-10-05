@@ -137,7 +137,9 @@ The explicit path selects the Homebrew installation even if another copy of
 
 [Vimdow](https://vimdow.told.me) is a keyboard-driven window manager for macOS.
 Enter command mode to move, resize, snap, and switch windows with Vim-style keys.
-Mark individual windows to cycle between them with Control–Option–Tab.
+Mark individual windows, then use Control–Option–[ and Control–Option–] to cycle
+backward and forward, wrapping at both ends. Both shortcuts are customizable
+in Settings. Optional tmux pane numbers can be enabled in Settings → General.
 
 ### Install
 
