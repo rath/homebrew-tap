@@ -120,8 +120,15 @@ brew update
 brew upgrade vtamp
 ```
 
-Run `vtamp server stop` afterwards so the next `vtamp` starts the new build; a
-running playback server is never replaced by an install.
+Reattach to use new client features. Restart the playback server with
+`vtamp server stop` when an upgrade needs server changes; an install never
+replaces a running server. See the release upgrade notes for details.
+
+Optional plugin examples are installed under
+`$(brew --prefix vtamp)/share/vtamp/examples/`. Hello Panel needs Python 3;
+Pastel Transcript includes its own prebuilt binary. See the
+[plugin guide](https://github.com/rath/vtamp/blob/main/docs/plugins.md#use-the-packaged-examples)
+for registration instructions.
 
 ### Verify
 

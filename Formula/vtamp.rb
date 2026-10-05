@@ -1,8 +1,8 @@
 class Vtamp < Formula
   desc "Terminal music player with a persistent playback server"
   homepage "https://github.com/rath/vtamp"
-  url "https://github.com/rath/vtamp/releases/download/v0.4.3/vtamp-aarch64-apple-darwin.tar.gz"
-  sha256 "b1e4a567f3a355701d567e95f1d7d3ec8a81f1ddd547d0c1415af2d5a3354b72"
+  url "https://github.com/rath/vtamp/releases/download/v0.5.0/vtamp-aarch64-apple-darwin.tar.gz"
+  sha256 "21e7d104fa366a748592326e2e36370f3795aa672f107110d33ad3f506ee0dd1"
   license "MIT"
 
   depends_on arch: :arm64
@@ -10,7 +10,7 @@ class Vtamp < Formula
 
   def install
     bin.install "vtamp"
-    pkgshare.install "themes"
+    pkgshare.install "themes", "examples"
     doc.install "README.md", "CHANGELOG.md", "docs"
   end
 
@@ -24,6 +24,11 @@ class Vtamp < Formula
     theme = pkgshare/"themes/pastel/pastel-default.json"
     assert_match "pastel-default", shell_output("#{bin}/vtamp theme install #{theme} --json")
     assert_match "pastel-default", shell_output("#{bin}/vtamp theme list --json")
+    manifest = pkgshare/"examples/hello-panel/plugin.json"
+    assert_match "hello-panel", shell_output("#{bin}/vtamp plugin add #{manifest} --json")
+    assert_match "hello-panel", shell_output("#{bin}/vtamp plugin list --json")
+    assert_match "hello-panel", shell_output("#{bin}/vtamp plugin remove hello-panel --json")
+    assert_path_exists pkgshare/"examples/pastel-transcript/pastel-transcript"
     refute_path_exists testpath/"home/state.db"
   end
 end
