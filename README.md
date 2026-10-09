@@ -147,6 +147,9 @@ Enter command mode to move, resize, snap, and switch windows with Vim-style keys
 Mark individual windows, then use Control–Option–[ and Control–Option–] to cycle
 backward and forward, wrapping at both ends. Both shortcuts are customizable
 in Settings. Optional tmux pane numbers can be enabled in Settings → General.
+A launcher opens apps and System Settings panes by name once you record its
+shortcut, and Control–Option–D dims every window except the focused one, with
+the intensity set in Settings → General → Dimming.
 
 ### Install
 
