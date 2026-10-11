@@ -1,6 +1,6 @@
 cask "vimdow" do
-  version "1.3.0"
-  sha256 "7dcd794a32e26d3a0369d042fb323e7e9ec605167239e1a73a8a3c79cd739663"
+  version "1.3.1"
+  sha256 "f710c9e33cb63f72c4e4e3d14130e8d8938c802e8412f6ab7ea8c03a210418aa"
 
   url "https://github.com/rath/Vimdow/releases/download/v#{version}/Vimdow.zip"
   name "Vimdow"

@@ -202,6 +202,9 @@ Open **Vimdow.app** from Applications and allow it in **System Settings →
 Privacy & Security → Accessibility**. Press **Control–Option–A** to enter
 command mode and `,` to open Settings.
 
+To start Vimdow automatically, enable **Open Vimdow at login** under
+Settings → General → Startup. **Command–W** closes Settings.
+
 ### Update
 
 Quit Vimdow first: press **Control–Option–A**, then `x`.
