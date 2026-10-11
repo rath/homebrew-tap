@@ -1,0 +1,53 @@
+name: Test Candy cask
+
+on:
+  push:
+    paths: ["Casks/candy.rb", ".github/workflows/candy.yml"]
+  pull_request:
+    paths: ["Casks/candy.rb", ".github/workflows/candy.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: candy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    name: Install on Apple Silicon
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Homebrew/actions/setup-homebrew@e99025eb970cfa124b8284a35463d87426917478 # main
+      - name: Style, audit, install, and verify
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+        run: |
+          brew tap rath/tap
+          cp Casks/candy.rb "$(brew --repo rath/tap)/Casks/candy.rb"
+          brew style --cask rath/tap/candy
+          brew audit --cask --strict --online rath/tap/candy
+          brew install --cask rath/tap/candy
+          app="/Applications/Candy.app"
+          cli="$(brew --prefix)/bin/candy"
+          expected="$(brew info --cask --json=v2 rath/tap/candy | jq -r '.casks[0].version')"
+          actual="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")"
+          test "$actual" = "$expected"
+          test "$("$cli" --version)" = "candy $expected"
+          test "$(lipo -archs "$app/Contents/MacOS/Candy")" = arm64
+          test "$(lipo -archs "$app/Contents/Helpers/candy")" = arm64
+          codesign --verify --deep --strict "$app"
+          xcrun stapler validate "$app"
+          spctl --assess --type execute "$app"
+          # Synthetic 1x1 PNG; exercising native decode and CLI export needs no UI.
+          printf '%s' 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aX1cAAAAASUVORK5CYII=' | base64 --decode > "$RUNNER_TEMP/input.png"
+          "$cli" resize "$RUNNER_TEMP/input.png" --width 2 -o "$RUNNER_TEMP/output.png"
+          test -s "$RUNNER_TEMP/output.png"
+          sips -g pixelWidth "$RUNNER_TEMP/output.png" | grep -q 'pixelWidth: 2'
+          brew uninstall --cask candy
+          test ! -e "$app"
+          test ! -L "$cli"

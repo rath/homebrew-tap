@@ -2,6 +2,44 @@
 
 Homebrew formulae by Jang-Ho Hwang
 
+## Candy
+
+[Candy](https://candy.told.me) is a native macOS image editor and terminal image
+utility. Crop, mosaic, highlight, resize, and flatten transparency; detect text
+locally with Apple Vision before applying mosaic.
+
+### Install
+
+```sh
+brew install --cask rath/tap/candy
+```
+
+Requires macOS 14 (Sonoma) or later on **Apple Silicon**. The Cask installs
+`Candy.app` in Applications and links the bundled `candy` CLI into Homebrew's
+bin directory. The app and CLI are Developer ID signed and notarized by Apple;
+Rust and Xcode are not required.
+
+Open Candy from Applications, run `candy edit photo.png` for the native editor,
+or run `candy photo.png` to view an image in a Kitty-compatible terminal.
+
+### Update
+
+Quit Candy first, then run:
+
+```sh
+brew update
+brew upgrade --cask candy
+```
+
+### Verify
+
+```sh
+"$(brew --prefix)/bin/candy" --version
+```
+
+The explicit path selects the Homebrew CLI if a Cargo-installed `candy` is
+also present on your PATH. Intel Macs are not supported by this Cask.
+
 ## iotap
 
 [iotap](https://iotap.told.me) traces the file and network I/O of chosen
