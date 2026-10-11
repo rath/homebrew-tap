@@ -1,6 +1,6 @@
 cask "candy" do
-  version "0.1.1"
-  sha256 "2482653ecc490c36263d98e48c86ab34e827c8d934fbd9bb6ee5aef98cd49ff0"
+  version "0.2.0"
+  sha256 "873dc12ab341c508e2a18117057fb1e75fd1e805fcf8c1bd0f84eb48ffe74330"
 
   url "https://github.com/rath/candy/releases/download/v#{version}/Candy-#{version}-macos-arm64.zip"
   name "Candy"
@@ -13,7 +13,7 @@ cask "candy" do
   app "Candy.app"
   binary "#{appdir}/Candy.app/Contents/Helpers/candy"
 
-  uninstall quit: "org.candyapp.Candy"
+  uninstall quit: "me.told.candy.app"
 
-  zap trash: "~/Library/Preferences/org.candyapp.Candy.plist"
+  zap trash: "~/Library/Preferences/me.told.candy.app.plist"
 end
