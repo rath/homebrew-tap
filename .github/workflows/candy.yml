@@ -28,7 +28,10 @@ jobs:
           HOMEBREW_NO_INSTALL_CLEANUP: "1"
         run: |
           brew tap rath/tap
-          cp Casks/candy.rb "$(brew --repo rath/tap)/Casks/candy.rb"
+          cask_path="$(brew --repo rath/tap)/Casks/candy.rb"
+          if ! test Casks/candy.rb -ef "$cask_path"; then
+            cp Casks/candy.rb "$cask_path"
+          fi
           brew style --cask rath/tap/candy
           brew audit --cask --strict --online rath/tap/candy
           brew install --cask rath/tap/candy
