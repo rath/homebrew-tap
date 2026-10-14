@@ -1,6 +1,6 @@
 cask "candy" do
-  version "0.2.3"
-  sha256 "118083753c569aba0d224143fd140f8f8a77f457d58c7f3f226e0851cc6210bf"
+  version "0.2.4"
+  sha256 "55d00017b02af0103a7f22a80bcb874043dd24356923f460a2a7490ddc3ccdc7"
 
   url "https://github.com/rath/candy/releases/download/v#{version}/Candy-#{version}-macos-arm64.zip"
   name "Candy"
