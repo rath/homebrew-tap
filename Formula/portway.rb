@@ -1,9 +1,9 @@
 class Portway < Formula
   desc "Compression-first HTTP forwarder"
   homepage "https://github.com/rath/portway"
-  url "https://github.com/rath/portway/releases/download/v0.2.6/portway-aarch64-apple-darwin.tar.gz"
-  version "0.2.6"
-  sha256 "e1d19e4c935be54df601757296054b5fac4aa9d23e1a3dabec6395924aa20bb2"
+  url "https://github.com/rath/portway/releases/download/v0.2.7/portway-aarch64-apple-darwin.tar.gz"
+  version "0.2.7"
+  sha256 "4dd07d84bd7d94877f8e86cae10c719e7af2097b2086294eff45de8bc0db8835"
   license "MIT"
 
   on_macos do
@@ -12,13 +12,13 @@ class Portway < Formula
 
   on_linux do
     on_arm do
-      url "https://github.com/rath/portway/releases/download/v0.2.6/portway-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "cc1f5325659ac782d49587f50f14334231def66e71f7fae0b6bfcdc2ba8e7ef6"
+      url "https://github.com/rath/portway/releases/download/v0.2.7/portway-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "d463c2c351f9b569d75f40f495fb5e5a4e266023ca9d54a5978fbd42f3bd7a87"
     end
 
     on_intel do
-      url "https://github.com/rath/portway/releases/download/v0.2.6/portway-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "4a3969bc3d9ef77ad056a03a38261ef2057bffedddfc63206ce914b39b338179"
+      url "https://github.com/rath/portway/releases/download/v0.2.7/portway-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "21c6f8c820b7eeec66a2b5341051bd0873f4f3bc233cc91fe095444aeb0844cf"
     end
   end
 
