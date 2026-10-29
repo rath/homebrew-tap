@@ -1,8 +1,8 @@
 class Iotap < Formula
   desc "Trace the file and network I/O of processes"
   homepage "https://iotap.told.me"
-  url "https://github.com/rath/iotap/releases/download/v0.2.1/iotap-aarch64-apple-darwin.tar.gz"
-  sha256 "09199c653afcc93212bd908a12e78a0e67839d1bf193e3c33d4ba5f5674e3be0"
+  url "https://github.com/rath/iotap/releases/download/v0.2.2/iotap-aarch64-apple-darwin.tar.gz"
+  sha256 "1dfcb0f3e251cdeff7c1b5cd2f18f1f6e0ddc107a05069988d1e181ccd2f1757"
   license "MIT"
 
   on_macos do
@@ -15,13 +15,13 @@ class Iotap < Formula
     depends_on "zlib-ng-compat"
 
     on_arm do
-      url "https://github.com/rath/iotap/releases/download/v0.2.1/iotap-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "868d38ee81845007285b01a4eafc981e62ec3cee70e97fd662db48efc44b95fa"
+      url "https://github.com/rath/iotap/releases/download/v0.2.2/iotap-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "a4fab70b85b0d00b036b6cb701ff553477db37309444d0d12ad015b72e75d68a"
     end
 
     on_intel do
-      url "https://github.com/rath/iotap/releases/download/v0.2.1/iotap-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "38c4bc8c3364869c621dfef26db5a0c0d2f7027938216b1bd27bec58fae3ca59"
+      url "https://github.com/rath/iotap/releases/download/v0.2.2/iotap-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "aa23e90ff6d29042fab834d5e10aaaeeb9ae7cb5e57ae48091097b01eddd46ea"
     end
   end
 
